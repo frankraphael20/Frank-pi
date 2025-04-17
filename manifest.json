@@ -1,0 +1,14 @@
+{
+  "name": "Frank App",
+  "description": "This program is a solution for online merchants to buy and sell.",
+  "api": {
+    "version": "1.0.0"
+  },
+  "authorization": {
+    "permissions": ["username", "payments"]
+  },
+  "developer": {
+    "name": "Frank",
+    "url": "https://delightful-puppy-bdfcdd.netlify.app"
+  }
+}
