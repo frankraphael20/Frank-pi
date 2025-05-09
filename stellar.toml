@@ -1,0 +1,4 @@
+[[CURRENCIES]]
+code = "PI"
+issuer = "GAFDR...ZBBLA"  # Tumia wallet yako ya Pi ya testnet kama ilivyo kwenye profile
+display_decimals = 6
