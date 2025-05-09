@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lipa kwa Test-Pi</title>
+  <script defer src="https://sdk.minepi.com/pi-sdk.js"></script>
+</head>
+<body>
+  <h1>Lipa kwa Test-Pi</h1>
+  <button onclick="startPayment()">Lipa Sasa</button>
+
+  <script>
+    function startPayment() {
+      Pi.init({
+        version: "2.0",
+        sandbox: true,
+        onReady: () => {
+          Pi.createPayment({
+            amount: 1,
+            memo: "Malipo ya majaribio",
+            metadata: { example: "data" },
+          }, {
+            onReadyForServerApproval: (paymentId) => {
+              console.log("Payment ready for server approval: " + paymentId);
+            },
+            onReadyForServerCompletion: (paymentId, txid) => {
+              console.log("Payment complete: " + paymentId + ", Transaction ID: " + txid);
+            },
+            onCancel: (paymentId) => {
+              console.log("Payment cancelled: " + paymentId);
+            },
+            onError: (error, payment) => {
+              console.error("Payment error: ", error);
+            },
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>
