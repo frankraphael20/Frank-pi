@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frank Pi Payment App</title>
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #8e44ad;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lipa kwa Test-Pi</h1>
+  <button id="payButton">Lipa Sasa</button>
+
+  <script>
+    const paymentData = {
+      amount: 0.001,
+      memo: "Malipo ya mfano",
+      metadata: { user: "frank" }
+    };
+
+    const onIncompletePaymentFound = (payment) => {
+      console.log("Incomplete payment found:", payment);
+    };
+
+    Pi.init({ version: "2.0", sandbox: true }).then(() => {
+      document.getElementById("payButton").addEventListener("click", () => {
+        Pi.createPayment(paymentData, {
+          onReadyForServerApproval: (paymentId) => {
+            console.log("Ready for server approval", paymentId);
+          },
+          onReadyForServerCompletion: (paymentId, txid) => {
+            console.log("Ready for server completion", paymentId, txid);
+          },
+          onCancel: (paymentId) => {
+            console.log("Payment cancelled", paymentId);
+          },
+          onError: (error, payment) => {
+            console.error("Payment failed", error, payment);
+          }
+        });
+      });
+    }).catch(err => {
+      console.error("Pi SDK init error", err);
+    });
+  </script>
+</body>
+</html>
