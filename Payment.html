@@ -1,18 +1,50 @@
-<script>
-  // Initialize Pi SDK
-  Pi.init({ version: "2.0" });
-
-  const paymentButton = document.getElementById("lipaBtn");
-  paymentButton.addEventListener("click", async () => {
-    try {
-      const payment = await Pi.createPayment({
-        amount: 1,
-        memo: "Malipo ya majaribio kwa Pi",
-        metadata: { paymentType: "test" },
-      });
-      console.log("Payment initiated", payment);
-    } catch (err) {
-      console.error("Payment failed", err);
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malipo ya Test-Pi</title>
+  <script defer src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 80px;
     }
-  });
-</script>
+    button {
+      background-color: #8e44ad;
+      color: white;
+      font-size: 20px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lipa kwa Test-Pi</h1>
+  <button id="lipaBtn">Lipa Sasa</button>
+
+  <script>
+    // Initialize Pi SDK
+    Pi.init({ version: "2.0" });
+
+    const paymentButton = document.getElementById("lipaBtn");
+
+    paymentButton.addEventListener("click", async () => {
+      try {
+        const payment = await Pi.createPayment({
+          amount: 1,
+          memo: "Malipo ya majaribio kwa Pi",
+          metadata: { paymentType: "test" },
+        });
+        console.log("Payment initiated", payment);
+      } catch (err) {
+        console.error("Payment failed", err);
+      }
+    });
+  </script>
+</body>
+</html>
+Pi.init({ version: "2.0" });
