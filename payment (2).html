@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lipa kwa Test-Pi</title>
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+</head>
+<body>
+  <h1>Lipa kwa Test-Pi</h1>
+  <button id="payButton">Lipa Sasa</button>
+
+  <script>
+    Pi.init({ version: "2.0", sandbox: true });
+
+    document.getElementById("payButton").addEventListener("click", () => {
+      Pi.createPayment({
+        amount: 1,
+        memo: "Malipo ya majaribio",
+        metadata: { purpose: "test-payment" }
+      }).then(payment => {
+        console.log("Payment successful:", payment);
+        alert("Malipo yamefanikiwa!");
+      }).catch(error => {
+        console.error("Payment failed:", error);
+        alert("Malipo yameshindwa. Tafadhali jaribu tena.");
+      });
+    });
+  </script>
+</body>
+</html>
