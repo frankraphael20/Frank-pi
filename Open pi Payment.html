@@ -1,0 +1,32 @@
+<button onclick="makePayment()">Pay with Pi</button>
+
+<script>
+  async function makePayment() {
+    const paymentData = {
+      amount: 1,
+      memo: "Test Payment",
+      metadata: { yourKey: "yourValue" }
+    };
+
+    try {
+      const payment = await Pi.createPayment(paymentData, {
+        onReadyForServerApproval: (paymentId) => {
+          // Send paymentId to your server for approval
+        },
+        onReadyForServerCompletion: (paymentId, txid) => {
+          // Send paymentId and txid to your server to complete the payment
+        },
+        onCancel: (paymentId) => {
+          // Handle when user cancels
+        },
+        onError: (error, payment) => {
+          console.error(error);
+        }
+      });
+
+      console.log(payment);
+    } catch (error) {
+      console.error("Payment failed", error);
+    }
+  }
+</script>
